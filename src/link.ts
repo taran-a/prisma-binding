@@ -34,6 +34,25 @@ export function makePrismaLink({
       inactivityTimeout: 30000,
     },
     webSocketImpl: ws,
+  });
+
+  wsLink.subscriptionClient.onConnecting(() => {
+      console.log(Date.now(), 'link.js', 'onConnecting');
+  })
+  wsLink.subscriptionClient.onConnected(() => {
+      console.log(Date.now(), 'link.js', 'onConnected');
+  })
+  wsLink.subscriptionClient.onDisconnected(() => {
+      console.log(Date.now(), 'link.js', 'onDisconnected');
+  })
+  wsLink.subscriptionClient.onError((...args) => {
+      console.log(Date.now(), 'link.js', 'onError', args[0]);
+  })
+  wsLink.subscriptionClient.onReconnecting(() => {
+      console.log(Date.now(), 'link.js', 'onReconnecting');
+  })
+  wsLink.subscriptionClient.onReconnected(() => {
+      console.log(Date.now(), 'link.js', 'onReconnected');
   })
 
   // TODO fix link typings
